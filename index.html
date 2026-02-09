@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine ❤️</title>
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.container {
+  max-width: 420px;
+  width: 92%;
+  background: rgba(255,255,255,0.15);
+  padding: 30px 25px;
+  border-radius: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  text-align: center;
+}
+h1 {
+  margin-top: 5px;
+}
+button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
+  background: white;
+  color: #ff3b6f;
+  cursor: pointer;
+  transition: 0.25s;
+}
+button:hover {
+  transform: scale(1.03);
+}
+.heart {
+  font-size: 28px;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.15);}
+  100% {transform: scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="game">
+  <div class="heart">❤️</div>
+  <h1>A Little Love Game</h1>
+  <h3 id="question"></h3>
+  <div id="options"></div>
+</div>
+
+<script>
+const quiz = [
+  {
+    q: "When was the first time we met? 💕",
+    options: ["19 July 2025", "14 Feb 2025", "1 Jan 2025", "20 Aug 2025"],
+    correct: 0
+  },
+  {
+    q: "Where did I propose to you? 💍",
+    options: ["River View City Central", "Hilton KL", "Avani Sepang", "Homevilla Penang"],
+    correct: 0
+  },
+  {
+    q: "What was the first dessert we had together? 🍨",
+    options: ["Cotton Candy", "Chocolate Lava Cake", "Alcohol Ice Cream", "Waffle & Berries"],
+    correct: 0
+  },
+  {
+    q: "Who is my forever Valentine? 😘",
+    options: ["You ❤️", "Me 😜", "Us 💑", "Always & Forever 💞"],
+    correct: 0
+  }
+];
+
+let current = 0;
+
+function showQuestion() {
+  document.getElementById("question").innerText = quiz[current].q;
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+
+  quiz[current].options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = opt;
+    btn.onclick = () => checkAnswer(index);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function checkAnswer(choice) {
+  if(choice === quiz[current].correct) {
+    current++;
+    if(current < quiz.length) {
+      showQuestion();
+    } else {
+      document.getElementById("game").innerHTML = `
+        <div class="heart">💖</div>
+        <h1>Will You Be My Valentine?</h1>
+        <p>Every moment with you is my favourite memory.</p>
+        <p>Forever & Always 💍</p>
+        <button onclick="alert('She said YES 😍')">YES 💕</button>
+      `;
+    }
+  } else {
+    alert("Oops 😜 Try again my love ❤️");
+  }
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
