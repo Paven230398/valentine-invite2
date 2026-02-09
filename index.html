@@ -24,9 +24,6 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   text-align: center;
 }
-h1 {
-  margin-top: 5px;
-}
 button {
   width: 100%;
   margin: 10px 0;
@@ -39,9 +36,7 @@ button {
   cursor: pointer;
   transition: 0.25s;
 }
-button:hover {
-  transform: scale(1.03);
-}
+button:hover { transform: scale(1.03); }
 .heart {
   font-size: 28px;
   animation: pulse 1.5s infinite;
@@ -72,17 +67,17 @@ const quiz = [
   },
   {
     q: "Where did I propose to you? 💍",
-    options: ["River View City Central", "Hilton KL", "Avani Sepang", "Homevilla Penang"],
-    correct: 0
+    options: ["Hilton KL", "River View City Central", "Avani Sepang", "HomeVilla Penang"],
+    correct: 1
   },
   {
     q: "What was the first dessert we had together? 🍨",
-    options: ["Cotton Candy", "Chocolate Lava Cake", "Alcohol Ice Cream", "Waffle & Berries"],
-    correct: 0
+    options: ["Creme Brulee", "Chocolate Lava Cake", "Alcohol Ice Cream", "Waffle & Berries"],
+    correct: 2
   },
   {
-    q: "Who is my forever Valentine? 😘",
-    options: ["You ❤️", "Me 😜", "Us 💑", "Always & Forever 💞"],
+    q: "Will you be my Valentine? 💖",
+    options: ["Yes 😘", "No 🙈"],
     correct: 0
   }
 ];
@@ -103,19 +98,30 @@ function showQuestion() {
 }
 
 function checkAnswer(choice) {
-  if(choice === quiz[current].correct) {
-    current++;
-    if(current < quiz.length) {
-      showQuestion();
-    } else {
+  // Last question logic
+  if(current === quiz.length - 1) {
+    if(choice === 0) {
       document.getElementById("game").innerHTML = `
         <div class="heart">💖</div>
-        <h1>Will You Be My Valentine?</h1>
-        <p>Every moment with you is my favourite memory.</p>
-        <p>Forever & Always 💍</p>
-        <button onclick="alert('She said YES 😍')">YES 💕</button>
+        <h1>YAYYYY ❤️</h1>
+        <p>You just made me the happiest man alive.</p>
+        <p>Happy Valentine’s, my love 💍</p>
+        <button onclick="alert('Forever yours 😘')">LOVE YOU 💕</button>
+      `;
+    } else {
+      document.getElementById("game").innerHTML = `
+        <div class="heart">😜</div>
+        <h1>Sorry chini 😘</h1>
+        <p>You’re already mine ❤️</p>
+        <button onclick="location.reload()">Try Again 😏</button>
       `;
     }
+    return;
+  }
+
+  if(choice === quiz[current].correct) {
+    current++;
+    showQuestion();
   } else {
     alert("Oops 😜 Try again my love ❤️");
   }
@@ -126,3 +132,4 @@ showQuestion();
 
 </body>
 </html>
+
